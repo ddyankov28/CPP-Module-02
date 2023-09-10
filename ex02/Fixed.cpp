@@ -6,7 +6,7 @@
 /*   By: ddyankov <ddyankov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:18:58 by ddyankov          #+#    #+#             */
-/*   Updated: 2023/09/08 16:27:37 by ddyankov         ###   ########.fr       */
+/*   Updated: 2023/09/10 11:54:56 by ddyankov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,66 @@ Fixed   Fixed::operator+(const Fixed& instance)
 { return this->toFloat() + instance.toFloat(); }
 
 Fixed   Fixed::operator-(const Fixed& instance)
-{ return this->toFloat() + instance.toFloat(); }
+{ return this->toFloat() - instance.toFloat(); }
 
 Fixed   Fixed::operator*(const Fixed& instance)
 { return this->toFloat() * instance.toFloat(); }
 
 Fixed   Fixed::operator/(const Fixed& instance)
 { return this->toFloat() / instance.toFloat(); }
+
+//the 2 increment operators
+Fixed&  Fixed::operator++()
+{
+    _fixedPointNum++;
+    return *this;
+}
+
+Fixed   Fixed::operator++(int)
+{
+    Fixed newVal(*this);
+    this->operator++();
+    return newVal;
+}
+
+//the 2 decrement operators
+Fixed&  Fixed::operator--()
+{
+    _fixedPointNum--;
+    return *this;
+}
+
+Fixed   Fixed::operator--(int)
+{
+    Fixed newVal(*this);
+    this->operator--();
+    return newVal;
+}
+
+Fixed&  Fixed::min(Fixed& inst1, Fixed& inst2)
+{
+    if (inst1 > inst2)
+        return inst2;
+    return inst1;
+}
+
+const Fixed& Fixed::min(const Fixed& inst1, const Fixed& inst2)
+{
+    if (inst1.getRawBits() > inst2.getRawBits())
+        return inst2;
+    return inst1;
+}
+
+Fixed& Fixed::max(Fixed& inst1, Fixed& inst2)
+{
+    if (inst1 > inst2)
+        return inst1;
+    return inst2;
+}
+
+const Fixed& Fixed::max(const Fixed& inst1, const Fixed& inst2)
+{
+    if (inst1.getRawBits() > inst2.getRawBits())
+        return inst1;
+    return inst2;
+}
